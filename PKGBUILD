@@ -1,7 +1,6 @@
 pkgname=initramfs-none
 pkgver=1
 pkgrel=1
-pkgdesc="Minimal and hardcoted initramfs to mount root with noatime directly"
 arch=('any')
 makedepends=(musl findutils cpio)
 provides=(initramfs)
@@ -10,6 +9,7 @@ sha512sums=('SKIP')
 build() {
 	mkdir -p initramfs/mnt
 	musl-gcc -O3 -march=native -s -static -o initramfs/init init.c
+	strip -R .note -R .comment initramfs/init
 	cd initramfs
 	find . -print | cpio -o --format=newc > ../none.img
 }
