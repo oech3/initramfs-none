@@ -1,0 +1,8 @@
+[Unit]
+After=graphical.target
+
+[Service]
+ExecStart=mount -o remount,rw,noatime /
+
+[Install]
+WantedBy=graphical.target
